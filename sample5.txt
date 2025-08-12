@@ -1,0 +1,109 @@
+Fibonacci Sequence to 20 Elements with Sum of 3 Random Numbers on Interrupt
+
+DATA
+.500
+
+Initial Elements
+0
+1
+
+PROGRAM
+.0
+
+Loop Counter
+1 Load 20
+20
+14 CopyToX
+
+Loop Conditional (3)
+15 CopyFromX
+21 JumpIfEqual 27
+27
+
+Loop Iteration
+2 Load *501
+501
+9 Put 1
+1
+27 Push
+16 CopyToY
+2 Load *500
+500
+11 AddY
+7 Store &501
+501
+28 Pop
+7 Store &500
+500
+1 Load
+10
+9 Put 2
+2
+26 DecX
+20 Jump 3
+3
+
+Terminate (27)
+50 End
+
+Timer Interrupt
+.1000
+
+Save State
+27 Push
+15 CopyFromX
+27 Push
+17 CopyFromY
+27 Push
+
+Generate Random Numbers and Pass to Print Sum Function Call
+8 Get
+27 Push
+8 Get
+27 Push
+8 Get
+27 Push
+23 Call 1022
+1022
+28 Pop
+28 Pop
+28 Pop
+
+Restore State
+28 Pop
+16 CopyToY
+28 Pop
+14 CopyToX
+28 Pop
+
+Return
+30 IRet
+
+Print Sum Function (1022)
+1 Load 60
+60
+9 Put 2
+2
+1 Load 3
+3
+14 CopyToX
+6 LoadSpX
+16 CopyToY
+26 DecX
+6 LoadSpX
+11 AddY
+16 CopyToY
+26 DecX
+6 LoadSpX
+11 AddY
+9 Put 1
+1
+1 Load 62
+62
+9 Put 2
+2
+24 Ret
+
+Manual Interrupt
+.1500
+30 IRet
